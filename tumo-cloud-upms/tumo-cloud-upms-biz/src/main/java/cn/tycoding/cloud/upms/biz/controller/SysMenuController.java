@@ -2,7 +2,6 @@ package cn.tycoding.cloud.upms.biz.controller;
 
 import cn.tycoding.cloud.common.auth.utils.AuthUtil;
 import cn.tycoding.cloud.common.core.api.R;
-import cn.tycoding.cloud.common.core.constants.ApiConstant;
 import cn.tycoding.cloud.common.log.annotation.ApiLog;
 import cn.tycoding.cloud.upms.api.dto.MenuTree;
 import cn.tycoding.cloud.upms.api.entity.SysMenu;
@@ -23,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(ApiConstant.API_UPMS_PREFIX + "/menu")
+@RequestMapping("/menu")
 @Api(value = "菜单表接口", tags = "菜单表接口")
 public class SysMenuController {
 

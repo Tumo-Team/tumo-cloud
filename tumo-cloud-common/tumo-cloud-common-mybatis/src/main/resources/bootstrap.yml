@@ -1,0 +1,5 @@
+# MybatisPlus配置
+mybatis-plus:
+  global-config:
+    # 关闭mybatis-plus启动banner
+    banner: false

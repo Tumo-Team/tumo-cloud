@@ -1,6 +1,6 @@
 package cn.tycoding.cloud.common.swagger;
 
-import cn.tycoding.cloud.common.core.constants.ApiConstant;
+import cn.tycoding.cloud.common.core.constants.GatewayApiConstant;
 import cn.tycoding.cloud.common.swagger.properties.SwaggerProperties;
 import cn.tycoding.cloud.common.swagger.utils.SwaggerUtil;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
@@ -57,7 +57,8 @@ public class SwaggerAutoConfiguration {
 
     private OAuth securitySchemes() {
         List<GrantType> grantTypes = new ArrayList<>();
-        ResourceOwnerPasswordCredentialsGrant resourceOwnerPasswordCredentialsGrant = new ResourceOwnerPasswordCredentialsGrant(ApiConstant.API_OAUTH_TOKEN);
+        ResourceOwnerPasswordCredentialsGrant resourceOwnerPasswordCredentialsGrant =
+                new ResourceOwnerPasswordCredentialsGrant(GatewayApiConstant.AUTH_TOKEN_PREFIX);
         grantTypes.add(resourceOwnerPasswordCredentialsGrant);
         return new OAuthBuilder().name("oauth2").grantTypes(grantTypes).build();
     }

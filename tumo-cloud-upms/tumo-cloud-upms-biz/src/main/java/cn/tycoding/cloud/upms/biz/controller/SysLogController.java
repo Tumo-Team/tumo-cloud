@@ -3,7 +3,6 @@ package cn.tycoding.cloud.upms.biz.controller;
 import cn.hutool.core.lang.Dict;
 import cn.tycoding.cloud.common.core.api.QueryPage;
 import cn.tycoding.cloud.common.core.api.R;
-import cn.tycoding.cloud.common.core.constants.ApiConstant;
 import cn.tycoding.cloud.common.mybatis.utils.MybatisUtil;
 import cn.tycoding.cloud.upms.api.entity.SysLog;
 import cn.tycoding.cloud.upms.biz.service.SysLogService;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @Api(value = "系统日志表管理接口", tags = "系统日志表管理接口")
-@RequestMapping(ApiConstant.API_RESOURCE_PREFIX + "/log")
+@RequestMapping("/log")
 public class SysLogController {
 
     private final SysLogService sysLogService;

@@ -11,7 +11,7 @@ public interface CacheConstant {
     /**
      * 系统所有Redis缓存Key前缀 prefix
      */
-    String REDIS_KEY_PREFIX = "tumo-boot:";
+    String REDIS_KEY_PREFIX = "tumo-cloud:";
 
     /**
      * OAuth缓存前缀

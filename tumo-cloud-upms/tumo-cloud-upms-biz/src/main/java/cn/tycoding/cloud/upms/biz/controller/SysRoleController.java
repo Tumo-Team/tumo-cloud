@@ -2,7 +2,6 @@ package cn.tycoding.cloud.upms.biz.controller;
 
 import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.cloud.common.core.api.R;
-import cn.tycoding.cloud.common.core.constants.ApiConstant;
 import cn.tycoding.cloud.common.log.annotation.ApiLog;
 import cn.tycoding.cloud.upms.api.dto.SysRoleDTO;
 import cn.tycoding.cloud.upms.api.entity.SysRole;
@@ -24,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(ApiConstant.API_UPMS_PREFIX + "/role")
+@RequestMapping("/role")
 @Api(value = "角色表接口", tags = "角色表接口")
 public class SysRoleController {
 

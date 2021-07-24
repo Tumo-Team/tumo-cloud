@@ -4,7 +4,6 @@ import cn.hutool.core.lang.Dict;
 import cn.tycoding.cloud.common.auth.utils.AuthUtil;
 import cn.tycoding.cloud.common.core.api.QueryPage;
 import cn.tycoding.cloud.common.core.api.R;
-import cn.tycoding.cloud.common.core.constants.ApiConstant;
 import cn.tycoding.cloud.common.log.annotation.ApiLog;
 import cn.tycoding.cloud.common.mybatis.utils.MybatisUtil;
 import cn.tycoding.cloud.upms.api.dto.SysUserDTO;
@@ -27,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(ApiConstant.API_UPMS_PREFIX + "/user")
+@RequestMapping("/user")
 @Api(value = "用户表接口", tags = "用户表接口")
 public class SysUserController {
 

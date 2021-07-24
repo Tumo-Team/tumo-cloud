@@ -39,8 +39,8 @@ import java.util.List;
  * @since 2021/5/21
  */
 @RestController
+@RequestMapping("/token")
 @RequiredArgsConstructor
-@RequestMapping(ApiConstant.API_AUTH_PREFIX)
 @Api(value = "自定义Token端点", tags = "自定义Token端点")
 public class AuthTokenEndpoint {
 
@@ -106,7 +106,7 @@ public class AuthTokenEndpoint {
     /**
      * 强制下线
      */
-    @DeleteMapping("/token/{token}")
+    @DeleteMapping("/{token}")
     @ApiOperation(value = "强制下线")
     public R tokenDel(@PathVariable String token) {
         clear(token);
@@ -116,7 +116,7 @@ public class AuthTokenEndpoint {
     /**
      * 分页获取在线Token
      */
-    @GetMapping("/token/page")
+    @GetMapping("/page")
     @ApiOperation(value = "获取令牌")
     public R tokenPage(QueryPage queryPage) {
         String key = String.format("%sauth_to_access:*", CacheConstant.OAUTH_PREFIX);

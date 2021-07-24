@@ -2,6 +2,7 @@ package cn.tycoding.cloud.auth.config;
 
 import cn.tycoding.cloud.auth.filter.CaptchaFilter;
 import cn.tycoding.cloud.auth.handler.FormFailureHandler;
+import cn.tycoding.cloud.common.auth.props.AuthProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final String[] swagger_ignores = new String[]{"/swagger-ui.html", "/doc.html/**", "/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs", "/v3/api-docs", "/webjars/**"};
 
     private final CaptchaFilter captchaFilter;
+    private final AuthProperties authProperties;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -47,9 +49,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-                .loginPage("/token/login")
-                .loginProcessingUrl("/token/form")
-                .failureHandler(authenticationFailureHandler())
+//                .loginPage("/token/login")
+//                .loginProcessingUrl("/token/form")
+//                .failureHandler(authenticationFailureHandler())
 
                 .and()
                 .logout()
@@ -58,6 +60,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(swagger_ignores)
+                .permitAll()
+
+                .antMatchers(authProperties.getSkipUrl().toArray(new String[0]))
                 .permitAll()
 
                 .anyRequest()

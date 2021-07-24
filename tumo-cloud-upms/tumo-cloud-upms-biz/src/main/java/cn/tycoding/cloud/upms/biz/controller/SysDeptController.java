@@ -2,7 +2,6 @@ package cn.tycoding.cloud.upms.biz.controller;
 
 import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.cloud.common.core.api.R;
-import cn.tycoding.cloud.common.core.constants.ApiConstant;
 import cn.tycoding.cloud.common.log.annotation.ApiLog;
 import cn.tycoding.cloud.upms.api.entity.SysDept;
 import cn.tycoding.cloud.upms.biz.service.SysDeptService;
@@ -22,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(ApiConstant.API_UPMS_PREFIX + "/dept")
+@RequestMapping("/dept")
 @Api(value = "部门表接口", tags = "部门表接口")
 public class SysDeptController {
 
