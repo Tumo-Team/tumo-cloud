@@ -1,6 +1,7 @@
 package cn.tycoding.cloud.upms.biz.controller;
 
 import cn.hutool.core.lang.Dict;
+import cn.tycoding.cloud.common.auth.annotation.Inner;
 import cn.tycoding.cloud.common.auth.utils.AuthUtil;
 import cn.tycoding.cloud.common.core.api.QueryPage;
 import cn.tycoding.cloud.common.core.api.R;
@@ -31,6 +32,17 @@ import java.util.List;
 public class SysUserController {
 
     private final SysUserService sysUserService;
+
+    @Inner
+    @GetMapping("/info/{username}")
+    @ApiOperation(value = "根据用户名获取用户信息")
+    public R<UserInfo> info(@PathVariable String username) {
+        UserInfo userInfo = sysUserService.info(username);
+        if (userInfo == null) {
+            return R.fail("获取用户信息失败");
+        }
+        return R.ok(userInfo);
+    }
 
     @GetMapping("/info")
     @ApiOperation(value = "获取当前用户信息")

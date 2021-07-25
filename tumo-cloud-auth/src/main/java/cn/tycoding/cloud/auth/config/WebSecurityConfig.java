@@ -36,8 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     @SneakyThrows
-    protected AuthenticationManager authenticationManager() {
-        return super.authenticationManagerBean();
+    public AuthenticationManager authenticationManager() {
+        return super.authenticationManager();
     }
 
     @Bean
@@ -49,9 +49,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-//                .loginPage("/token/login")
-//                .loginProcessingUrl("/token/form")
-//                .failureHandler(authenticationFailureHandler())
+                .loginPage("/token/login")
+                .loginProcessingUrl("/token/form")
+                .failureHandler(authenticationFailureHandler())
 
                 .and()
                 .logout()

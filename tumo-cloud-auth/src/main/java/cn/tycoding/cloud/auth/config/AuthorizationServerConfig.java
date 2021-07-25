@@ -1,8 +1,10 @@
 package cn.tycoding.cloud.auth.config;
 
 import cn.tycoding.cloud.common.auth.component.TumoWebResponseExceptionTranslator;
+import cn.tycoding.cloud.common.auth.service.UserDetailsServiceImpl;
 import cn.tycoding.cloud.common.core.constants.CacheConstant;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -31,6 +33,7 @@ import javax.sql.DataSource;
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final DataSource dataSource;
+    private final UserDetailsServiceImpl userDetailsService;
     private final RedisConnectionFactory redisConnectionFactory;
     private final AuthenticationManager authenticationManager;
 
@@ -42,23 +45,23 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+    @SneakyThrows
+    public void configure(ClientDetailsServiceConfigurer clients) {
         clients.withClientDetails(new JdbcClientDetailsService(dataSource));
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
                 .tokenStore(tokenStore())
+                .userDetailsService(userDetailsService)
                 .authenticationManager(authenticationManager)
                 .exceptionTranslator(new TumoWebResponseExceptionTranslator());
     }
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security
-                .allowFormAuthenticationForClients()
-                .checkTokenAccess("permitAll()");
+    public void configure(AuthorizationServerSecurityConfigurer security) {
+        security.allowFormAuthenticationForClients().checkTokenAccess("permitAll()");
     }
 }

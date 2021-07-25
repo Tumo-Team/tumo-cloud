@@ -7,7 +7,6 @@ import cn.tycoding.cloud.common.auth.dto.TumoUser;
 import cn.tycoding.cloud.common.auth.utils.AuthUtil;
 import cn.tycoding.cloud.common.core.api.QueryPage;
 import cn.tycoding.cloud.common.core.api.R;
-import cn.tycoding.cloud.common.core.constants.ApiConstant;
 import cn.tycoding.cloud.common.core.constants.CacheConstant;
 import cn.tycoding.cloud.common.core.constants.CaptchaConstant;
 import cn.tycoding.cloud.common.core.utils.BeanUtil;

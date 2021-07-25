@@ -22,6 +22,12 @@
             <artifactId>tumo-cloud-common-redis</artifactId>
             <version>1.0.0</version>
         </dependency>
+
+        <!-- SecurityOauth自动配置 -->
+        <dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
