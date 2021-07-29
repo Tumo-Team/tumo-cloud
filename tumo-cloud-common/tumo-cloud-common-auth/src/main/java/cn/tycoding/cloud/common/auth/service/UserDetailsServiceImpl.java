@@ -5,6 +5,7 @@ import cn.tycoding.cloud.common.auth.exception.TumoAuth2Exception;
 import cn.tycoding.cloud.common.auth.utils.AuthUtil;
 import cn.tycoding.cloud.common.core.constants.AuthConstant;
 import cn.tycoding.cloud.common.core.constants.CacheConstant;
+import cn.tycoding.cloud.common.feign.constants.FeignConstant;
 import cn.tycoding.cloud.upms.api.dto.UserInfo;
 import cn.tycoding.cloud.upms.api.entity.SysRole;
 import cn.tycoding.cloud.upms.api.feign.RemoteUserService;
@@ -50,7 +51,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             UserInfo info = (UserInfo) cache.get(username).get();
             return getUserDetails(info);
         }
-        UserInfo info = userService.info(username).getData();
+        UserInfo info = userService.info(username, FeignConstant.INNER).getData();
         return getUserDetails(info);
     }
 

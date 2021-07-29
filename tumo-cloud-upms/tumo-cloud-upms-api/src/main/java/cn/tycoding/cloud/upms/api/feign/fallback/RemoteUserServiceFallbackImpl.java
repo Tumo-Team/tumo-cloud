@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class RemoteUserServiceFallbackImpl implements RemoteUserService {
 
     @Override
-    public R<UserInfo> info(String username) {
+    public R<UserInfo> info(String username, String innerKey) {
         log.error("查询用户信息失败 >>>>>>>>>>> username = {}", username);
         return null;
     }

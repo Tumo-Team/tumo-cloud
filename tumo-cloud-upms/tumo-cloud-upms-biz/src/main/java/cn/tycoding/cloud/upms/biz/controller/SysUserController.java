@@ -37,19 +37,22 @@ public class SysUserController {
     @GetMapping("/info/{username}")
     @ApiOperation(value = "根据用户名获取用户信息")
     public R<UserInfo> info(@PathVariable String username) {
-        UserInfo userInfo = sysUserService.info(username);
-        if (userInfo == null) {
+        SysUser user = sysUserService.findByName(username);
+        if (user == null) {
             return R.fail("获取用户信息失败");
         }
-        return R.ok(userInfo);
+        return R.ok(sysUserService.info(user));
     }
 
     @GetMapping("/info")
     @ApiOperation(value = "获取当前用户信息")
     public R<UserInfo> info() {
-        UserInfo userInfo = sysUserService.info(AuthUtil.getUsername());
-        userInfo.getUser().setPassword(null);
-        return R.ok(userInfo);
+        SysUser user = sysUserService.findByName(AuthUtil.getUsername());
+        if (user == null) {
+            return R.fail("获取用户信息失败");
+        }
+        user.setPassword(null);
+        return R.ok(sysUserService.info(user));
     }
 
     @GetMapping("/checkName")

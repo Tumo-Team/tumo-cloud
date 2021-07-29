@@ -1,12 +1,14 @@
 package cn.tycoding.cloud.upms.api.feign;
 
-import cn.tycoding.cloud.common.feign.constants.ServiceNameConstant;
 import cn.tycoding.cloud.common.core.api.R;
+import cn.tycoding.cloud.common.feign.constants.FeignConstant;
+import cn.tycoding.cloud.common.feign.constants.ServiceNameConstant;
 import cn.tycoding.cloud.upms.api.dto.UserInfo;
 import cn.tycoding.cloud.upms.api.feign.fallback.RemoteUserServiceFallbackImpl;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 /**
  * Feign远程服务接口，对应UPMS模块接口
@@ -24,5 +26,5 @@ public interface RemoteUserService {
      * @return 用户、角色、部门、权限
      */
     @GetMapping("/user/info/{username}")
-    R<UserInfo> info(@PathVariable("username") String username);
+    R<UserInfo> info(@PathVariable("username") String username, @RequestHeader(FeignConstant.INNER_KEY) String innerKey);
 }

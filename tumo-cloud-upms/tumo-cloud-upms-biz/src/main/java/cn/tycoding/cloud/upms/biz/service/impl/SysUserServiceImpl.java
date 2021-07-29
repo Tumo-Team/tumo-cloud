@@ -61,18 +61,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    @Cacheable(value = CacheConstant.USER_DETAIL_KEY, key = "#username")
-    public UserInfo info(String username) {
-        return this.build(new UserInfo().setUser(this.findByName(username)));
+    @Cacheable(value = CacheConstant.USER_DETAIL_KEY, key = "#user.username")
+    public UserInfo info(SysUser user) {
+        return this.build(user);
     }
 
     /**
      * 构建用户信息、角色信息、权限标识信息、部门信息
      */
-    private UserInfo build(UserInfo userInfo) {
-        if (userInfo == null || userInfo.getUser() == null) {
-            throw new ServiceException("没有查询用用户信息");
-        }
+    private UserInfo build(SysUser user) {
+        UserInfo userInfo = new UserInfo().setUser(user);
         //获取用户角色列表
         List<SysRole> sysRoleList = sysRoleService.findRolesByUserId(userInfo.getUser().getId());
         if (sysRoleList.size() == 0) {

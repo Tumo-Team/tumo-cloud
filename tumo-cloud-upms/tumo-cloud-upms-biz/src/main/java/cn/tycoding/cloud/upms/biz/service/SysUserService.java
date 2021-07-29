@@ -30,7 +30,7 @@ public interface SysUserService extends IService<SysUser> {
     /**
      * 根据用户名封装：用户信息、角色、部门、权限
      */
-    UserInfo info(String username);
+    UserInfo info(SysUser sysUser);
 
     /**
      * 条件查询
