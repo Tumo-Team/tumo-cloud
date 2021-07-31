@@ -3,13 +3,13 @@ package cn.tycoding.cloud.auth.endpoint;
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.core.lang.Dict;
+import cn.tycoding.cloud.common.auth.annotation.Inner;
 import cn.tycoding.cloud.common.auth.dto.TumoUser;
 import cn.tycoding.cloud.common.auth.utils.AuthUtil;
 import cn.tycoding.cloud.common.core.api.QueryPage;
 import cn.tycoding.cloud.common.core.api.R;
 import cn.tycoding.cloud.common.core.constants.CacheConstant;
 import cn.tycoding.cloud.common.core.constants.CaptchaConstant;
-import cn.tycoding.cloud.common.core.utils.BeanUtil;
 import cn.tycoding.cloud.common.mybatis.utils.MybatisUtil;
 import cn.tycoding.cloud.common.redis.utils.RedisUtil;
 import cn.tycoding.cloud.common.redis.utils.TokenInfo;
@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -105,6 +106,7 @@ public class AuthTokenEndpoint {
     /**
      * 强制下线
      */
+    @Inner
     @DeleteMapping("/{token}")
     @ApiOperation(value = "强制下线")
     public R tokenDel(@PathVariable String token) {
@@ -115,17 +117,24 @@ public class AuthTokenEndpoint {
     /**
      * 分页获取在线Token
      */
+    @Inner
     @GetMapping("/page")
     @ApiOperation(value = "获取令牌")
-    public R tokenPage(QueryPage queryPage) {
+    public R<Dict> tokenPage(QueryPage queryPage) {
         String key = String.format("%sauth_to_access:*", CacheConstant.OAUTH_PREFIX);
         List<String> keysPage = RedisUtil.getKeysPage(redisTemplate, key, 1, 10);
         List<DefaultOAuth2AccessToken> list = redisTemplate.opsForValue().multiGet(keysPage);
-        List<TokenInfo> tokenInfoList = BeanUtil.copy(list, TokenInfo.class);
-
-        tokenInfoList.forEach(info -> {
-            OAuth2Authentication authentication = tokenStore.readAuthentication(info.getValue());
-            info.setPrincipal(authentication.getPrincipal());
+        List<TokenInfo> tokenInfoList = new ArrayList<>();
+        list.forEach(accessToken -> {
+            OAuth2Authentication authentication = tokenStore.readAuthentication(accessToken.getValue());
+            TokenInfo tokenInfo = new TokenInfo()
+                    .setValue(accessToken.getValue())
+                    .setRefreshToken(accessToken.getRefreshToken().getValue())
+                    .setTokenType(accessToken.getTokenType())
+                    .setExpiration(accessToken.getExpiration())
+                    .setScope(accessToken.getScope())
+                    .setUsername(authentication.getName());
+            tokenInfoList.add(tokenInfo);
         });
 
         int total = redisTemplate.keys(key).size();

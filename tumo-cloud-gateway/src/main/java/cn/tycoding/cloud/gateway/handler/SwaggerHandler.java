@@ -1,4 +1,4 @@
-package cn.tycoding.cloud.gateway.endpoint;
+package cn.tycoding.cloud.gateway.handler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

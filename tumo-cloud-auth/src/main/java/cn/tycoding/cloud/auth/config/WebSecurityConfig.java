@@ -48,18 +48,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .formLogin()
-                .loginPage("/token/login")
-                .loginProcessingUrl("/token/form")
-                .failureHandler(authenticationFailureHandler())
+//                .formLogin()
+//                .loginPage("/token/login")
+//                .loginProcessingUrl("/token/form")
+//                .failureHandler(authenticationFailureHandler())
 
-                .and()
+//                .and()
                 .logout()
                 .deleteCookies("JSESSIONID")
 
                 .and()
                 .authorizeRequests()
                 .antMatchers(swagger_ignores)
+                .permitAll()
+
+                .antMatchers("/token/**", "/actuator/**")
                 .permitAll()
 
                 .antMatchers(authProperties.getSkipUrl().toArray(new String[0]))

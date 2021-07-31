@@ -40,6 +40,7 @@ public class AuthProperties implements InitializingBean, ApplicationContextAware
     private Boolean isDemoEnv;
 
     private ApplicationContext applicationContext;
+    private final Pattern pattern = Pattern.compile("\\{(.*?)\\}");
 
     /**
      * 初始化Bean时，拿到接口中所有添加 @Link 注解的方法或类下的接口
@@ -50,7 +51,6 @@ public class AuthProperties implements InitializingBean, ApplicationContextAware
         RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
         Map<RequestMappingInfo, HandlerMethod> handlerMethods = mapping.getHandlerMethods();
 
-        Pattern pattern = Pattern.compile("\\{(.*?)\\}");
         handlerMethods.keySet().forEach(info -> {
             HandlerMethod handlerMethod = handlerMethods.get(info);
 

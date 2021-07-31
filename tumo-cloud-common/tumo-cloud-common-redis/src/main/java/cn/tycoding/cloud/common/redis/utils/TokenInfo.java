@@ -1,6 +1,7 @@
 package cn.tycoding.cloud.common.redis.utils;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.Set;
  * @since 2021/6/12
  */
 @Data
+@Accessors(chain = true)
 public class TokenInfo implements Serializable {
     private static final long serialVersionUID = -1331900349298552602L;
 
@@ -34,7 +36,7 @@ public class TokenInfo implements Serializable {
     /**
      * 刷新Token
      */
-    private Object refreshToken;
+    private String refreshToken;
 
     /**
      * Scope
@@ -42,7 +44,7 @@ public class TokenInfo implements Serializable {
     private Set<String> scope;
 
     /**
-     * 用户信息
+     * 用户名
      */
-    private Object principal;
+    private String username;
 }
