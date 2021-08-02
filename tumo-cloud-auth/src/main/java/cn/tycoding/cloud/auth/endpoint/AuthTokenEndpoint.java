@@ -6,7 +6,6 @@ import cn.hutool.core.lang.Dict;
 import cn.tycoding.cloud.common.auth.annotation.Inner;
 import cn.tycoding.cloud.common.auth.dto.TumoUser;
 import cn.tycoding.cloud.common.auth.utils.AuthUtil;
-import cn.tycoding.cloud.common.core.api.QueryPage;
 import cn.tycoding.cloud.common.core.api.R;
 import cn.tycoding.cloud.common.core.constants.CacheConstant;
 import cn.tycoding.cloud.common.core.constants.CaptchaConstant;
@@ -120,7 +119,7 @@ public class AuthTokenEndpoint {
     @Inner
     @GetMapping("/page")
     @ApiOperation(value = "获取令牌")
-    public R<Dict> tokenPage(QueryPage queryPage) {
+    public R<Dict> tokenPage(@RequestParam("page") int page, @RequestParam("limit") int limit) {
         String key = String.format("%sauth_to_access:*", CacheConstant.OAUTH_PREFIX);
         List<String> keysPage = RedisUtil.getKeysPage(redisTemplate, key, 1, 10);
         List<DefaultOAuth2AccessToken> list = redisTemplate.opsForValue().multiGet(keysPage);
@@ -138,8 +137,8 @@ public class AuthTokenEndpoint {
         });
 
         int total = redisTemplate.keys(key).size();
-        Page page = new Page(queryPage.getPage(), queryPage.getLimit(), total);
-        page.setRecords(tokenInfoList);
-        return R.ok(MybatisUtil.getData(page));
+        Page iPage = new Page(page, limit, total);
+        iPage.setRecords(tokenInfoList);
+        return R.ok(MybatisUtil.getData(iPage));
     }
 }

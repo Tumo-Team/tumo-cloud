@@ -27,7 +27,7 @@ public class TokenController {
     @GetMapping("/page")
     @ApiOperation(value = "获取令牌列表", notes = "获取令牌列表")
     public R<Dict> tokenPage(QueryPage queryPage) {
-        return tokenService.tokenPage(FeignConstant.INNER, queryPage);
+        return tokenService.tokenPage(FeignConstant.INNER, queryPage.getPage(), queryPage.getLimit());
     }
 
     @DeleteMapping("/{token}")
