@@ -8,6 +8,7 @@ import cn.tycoding.cloud.upms.api.feign.RemoteTokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -32,6 +33,7 @@ public class TokenController {
 
     @DeleteMapping("/{token}")
     @ApiOperation(value = "删除令牌", notes = "删除令牌")
+    @PreAuthorize("@auth.hasAuth('system:token:delete')")
     public R tokenDel(@PathVariable String token) {
         return tokenService.tokenDel(FeignConstant.INNER, token);
     }

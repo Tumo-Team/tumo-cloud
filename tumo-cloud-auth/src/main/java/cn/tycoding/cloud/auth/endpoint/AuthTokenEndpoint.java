@@ -79,15 +79,14 @@ public class AuthTokenEndpoint {
      */
     @DeleteMapping("/logout")
     @ApiOperation(value = "注销接口")
-    public R<Boolean> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String token) {
-        clear(AuthUtil.getToken(token));
-        return R.ok();
+    public R logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String token) {
+        return clear(AuthUtil.getToken(token));
     }
 
-    private void clear(String token) {
+    private R clear(String token) {
         OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
         if (accessToken == null || StringUtils.isEmpty(accessToken.getValue())) {
-            return;
+            return R.ok("无法获取Token，清除缓存失效");
         }
         OAuth2Authentication authentication = tokenStore.readAuthentication(accessToken);
         // 清空access_token
@@ -100,6 +99,7 @@ public class AuthTokenEndpoint {
         // 清空Menu Details
         TumoUser principal = (TumoUser) authentication.getPrincipal();
         cacheManager.getCache(CacheConstant.MENU_DETAIL_KEY).evict(principal.getId());
+        return R.ok();
     }
 
     /**

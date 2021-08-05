@@ -40,7 +40,7 @@ public class SysLogController {
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "根据ID删除")
-    @PreAuthorize("@auth.hasAuth('resource:log:delete')")
+    @PreAuthorize("@auth.hasAuth('system:log:delete')")
     public R delete(@PathVariable Long id) {
         sysLogService.delete(id);
         return R.ok();
