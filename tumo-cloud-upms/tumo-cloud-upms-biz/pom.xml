@@ -28,6 +28,11 @@
             <artifactId>tumo-cloud-common-mybatis</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>cn.tycoding</groupId>
+            <artifactId>tumo-cloud-common-oss</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
         <!-- Mysql -->
         <dependency>

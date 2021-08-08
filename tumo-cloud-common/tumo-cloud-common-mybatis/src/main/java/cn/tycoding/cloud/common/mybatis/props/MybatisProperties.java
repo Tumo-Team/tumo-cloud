@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2021/5/21
  */
 @Data
-@ConfigurationProperties("tumo-boot.mybatis")
+@ConfigurationProperties("tumo-cloud.mybatis")
 public class MybatisProperties {
 
     /**

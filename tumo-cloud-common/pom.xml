@@ -16,6 +16,7 @@
         <module>tumo-cloud-common-feign</module>
         <module>tumo-cloud-common-log</module>
         <module>tumo-cloud-common-mybatis</module>
+        <module>tumo-cloud-common-oss</module>
         <module>tumo-cloud-common-redis</module>
         <module>tumo-cloud-common-swagger</module>
     </modules>
