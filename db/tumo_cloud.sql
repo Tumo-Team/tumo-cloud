@@ -79,6 +79,52 @@ INSERT INTO `sys_dept` VALUES (1362597682681577273, 0, '测试部门', 1, '测�
 COMMIT;
 
 -- ----------------------------
+-- Table structure for sys_dict
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dict`;
+CREATE TABLE `sys_dict` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `type` varchar(255) DEFAULT NULL COMMENT '类型',
+  `name` varchar(255) DEFAULT NULL COMMENT '名称',
+  `sort` int(20) DEFAULT NULL COMMENT '排序',
+  `is_system` tinyint(1) DEFAULT NULL COMMENT '是否系统内置',
+  `des` varchar(255) DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='字典表';
+
+-- ----------------------------
+-- Records of sys_dict
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_dict` VALUES (1423646158364020738, 'log_type', '系统日志', 1, 1, '日志类型字典，不可删除');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sys_dict_item
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dict_item`;
+CREATE TABLE `sys_dict_item` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `dict_id` bigint(20) NOT NULL COMMENT '字典表主键',
+  `value` varchar(255) DEFAULT NULL COMMENT '字典项值',
+  `label` varchar(255) DEFAULT NULL COMMENT '字典项名称',
+  `type` varchar(255) DEFAULT NULL COMMENT '字典项类型',
+  `sort` int(20) DEFAULT NULL COMMENT '排序',
+  `is_system` tinyint(1) DEFAULT NULL COMMENT '是否系统内置',
+  `des` varchar(255) DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='字典项表';
+
+-- ----------------------------
+-- Records of sys_dict_item
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_dict_item` VALUES (1423905893285801986, 1, '1', '1', '1', 1, NULL, '111');
+INSERT INTO `sys_dict_item` VALUES (1423906599338160129, 1423646158364020738, '1', '正常', 'log_type', 1, 1, '请求正常的日志');
+INSERT INTO `sys_dict_item` VALUES (1423910288618598401, 1423646158364020738, '2', '异常', 'log_type', 2, 1, '请求异常的日志');
+COMMIT;
+
+-- ----------------------------
 -- Table structure for sys_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
@@ -163,10 +209,17 @@ INSERT INTO `sys_menu` VALUES (1403542523561086978, '令牌管理', 140290071164
 INSERT INTO `sys_menu` VALUES (1403542523561087978, '令牌查看', 1403542523561086978, NULL, 'system:token:view', 'button', 202, NULL, NULL, 0, 0, 1, 1);
 INSERT INTO `sys_menu` VALUES (1403542705811984386, '令牌删除', 1403542523561086978, NULL, 'system:token:delete', 'button', 203, NULL, NULL, 0, 0, 1, 1);
 INSERT INTO `sys_menu` VALUES (1403549005811984386, '项目文档', NULL, '/doc', 'doc:view', 'menu', 300, 'ant-design:rocket-outlined', '', 0, 1, 1, 1);
-INSERT INTO `sys_menu` VALUES (1406057138559782913, 'API文档', 1403549005811984386, 'http://127.0.0.1:8010/doc.html', 'doc:api:view', 'menu', 301, 'ant-design:tag-outlined', NULL, 0, 1, 1, 1);
+INSERT INTO `sys_menu` VALUES (1406057138559782913, 'API文档', 1403549005811984386, 'http://127.0.0.1:9999/doc.html', 'doc:api:view', 'menu', 301, 'ant-design:tag-outlined', NULL, 0, 1, 1, 1);
 INSERT INTO `sys_menu` VALUES (1406058379956326402, '开发文档', 1403549005811984386, 'http://docs.boot.tycoding.cn/', 'doc:dev:view', 'menu', 302, 'ant-design:star-outlined', NULL, 0, 1, 1, 1);
-INSERT INTO `sys_menu` VALUES (1406058753513623553, '开源地址', 1403549005811984386, 'https://github.com/Tumo-Team/Tumo-Boot', 'doc:git:view', 'menu', 303, 'ant-design:github-filled', NULL, 0, 1, 1, 1);
+INSERT INTO `sys_menu` VALUES (1406058753513623553, '开源地址', 1403549005811984386, 'https://github.com/Tumo-Team/tumo-cloud', 'doc:git:view', 'menu', 303, 'ant-design:github-filled', NULL, 0, 1, 1, 1);
 INSERT INTO `sys_menu` VALUES (1423139857632509954, '监控面板', 1402900711645126657, '/monitor', 'monitor:view', 'menu', 230, 'ant-design:codepen-outlined', '/modules/system/monitor/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423636580482088961, '字典管理', 1402900711645126657, 'dict', NULL, 'menu', 230, 'ant-design:exception-outlined', '/modules/system/dict/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423638875592654849, '字典新增', 1423636580482088961, NULL, 'system:dict:add', 'button', 231, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423639000616468481, '字典修改', 1423636580482088961, NULL, 'system:dict:update', 'button', 232, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423639102978457602, '字典删除', 1423636580482088961, NULL, 'system:dict:delete', 'button', 233, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423639486551752706, '字典项新增', 1423636580482088961, NULL, 'system:dict:item:add', 'button', 235, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423639588704026626, '字典项修改', 1423636580482088961, NULL, 'system:dict:item:update', 'button', 236, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423640622671265793, '字典项删除', 1423636580482088961, NULL, 'system:dict:item:delete', 'button', 237, NULL, NULL, 0, 0, 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -210,6 +263,7 @@ INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402557067260071938);
 INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402557067260071948);
 INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402562175471669250);
 INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402563862928248833);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402564440660070202);
 INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402564440660070402);
 INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402891854378217473);
 INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402891854378217483);
@@ -237,8 +291,19 @@ INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402902826891354113);
 INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402903214973526017);
 INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1403542523561086978);
 INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1403542523561087978);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1403542523561187978);
 INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1403542705811984386);
 INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1403549005811984386);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1406057138559782913);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1406058379956326402);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1406058753513623553);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1423636580482088961);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1423638875592654849);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1423639000616468481);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1423639102978457602);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1423639486551752706);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1423639588704026626);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1423640622671265793);
 COMMIT;
 
 -- ----------------------------
@@ -264,9 +329,9 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (1362304631325102103, 'administrator', '$2a$10$ax1tsaE7fqB03iMQ/zeV8OAQ4bcTu5ik92XUfzUsP2XVrEXsFO/pS', '超级管理员', '女', '19809587830', 'tycoding@sina.com', 1362597682681577473, '/upload/default.png', 1, '2019-01-01 00:00:00');
-INSERT INTO `sys_user` VALUES (1362598312234024962, 'tycoding', '$2a$10$KBNb3GXoL4KKy55reaxnq.y0SgPWy2C6GT5yDqUuCSzCpqVBBGORK', '涂陌', '男', '19823879128', 'tycoding@sina.com', 1362597682681577473, '/upload/default.png', 1, '2021-02-19 11:02:08');
-INSERT INTO `sys_user` VALUES (1404807635385069569, 'demo', '$2a$10$/07tXYxlTY/iJfVZOU.8AeeZiQLX3MIQWUGwV9/N3wH6nMUbYFpl2', '演示环境账号', '男', '18929809812', 'ty@qq.com', 1362597682681577273, '/upload/default.png', 1, '2021-06-15 22:26:55');
+INSERT INTO `sys_user` VALUES (1362304631325102103, 'administrator', '$2a$10$ax1tsaE7fqB03iMQ/zeV8OAQ4bcTu5ik92XUfzUsP2XVrEXsFO/pS', '超级管理员', '女', '19809587830', 'tycoding@sina.com', 1362597682681577473, 'http://cdn.tycoding.cn/20210808171248.png', 1, '2019-01-01 00:00:00');
+INSERT INTO `sys_user` VALUES (1362598312234024962, 'tycoding', '$2a$10$KBNb3GXoL4KKy55reaxnq.y0SgPWy2C6GT5yDqUuCSzCpqVBBGORK', '涂陌', '男', '19823879128', 'tycoding@sina.com', 1362597682681577473, 'http://cdn.tycoding.cn/20210808171248.png', 1, '2021-02-19 11:02:08');
+INSERT INTO `sys_user` VALUES (1404807635385069569, 'demo', '$2a$10$/07tXYxlTY/iJfVZOU.8AeeZiQLX3MIQWUGwV9/N3wH6nMUbYFpl2', '演示环境账号', '男', '18929809812', 'ty@qq.com', 1362597682681577273, 'http://cdn.tycoding.cn/20210808171248.png', 1, '2021-06-15 22:26:55');
 COMMIT;
 
 -- ----------------------------
