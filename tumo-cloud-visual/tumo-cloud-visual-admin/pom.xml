@@ -49,14 +49,12 @@
         </dependency>
     </dependencies>
 
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>cn.tycoding.cloud.visual.admin.TumoCloudVisualAdminApp</mainClass>
-                </configuration>
             </plugin>
         </plugins>
     </build>

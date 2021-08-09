@@ -1,0 +1,108 @@
+version: "3.5"
+
+services:
+  tumo-cloud-mysql:
+    image: tumo-cloud-mysql
+    hostname: tumo-cloud-mysql
+    container_name: tumo-cloud-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    ports:
+      - 3307:3306
+    networks:
+      - tumo_cloud_net
+    build:
+      context: ./db
+
+  tumo-cloud-redis:
+    image: redis:6.0
+    hostname: tumo-cloud-redis
+    container_name: tumo-cloud-redis
+    restart: always
+    privileged: true
+    command: "redis-server --appendonly yes"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 6380:6379
+    networks:
+      - tumo_cloud_net
+
+  tumo-cloud-nacos:
+    image: tumo-cloud-nacos
+    hostname: tumo-cloud-nacos
+    container_name: tumo-cloud-nacos
+    restart: always
+    ports:
+      - 8848:8848
+    networks:
+      - tumo_cloud_net
+    build:
+      context: ./tumo-cloud-nacos
+
+  tumo-cloud-gateway:
+    image: tumo-cloud-gateway
+    hostname: tumo-cloud-gateway
+    container_name: tumo-cloud-gateway
+    restart: always
+    ports:
+      - 9999:9999
+    networks:
+      tumo_cloud_net:
+        ipv4_address: 172.30.1.1
+    build:
+      context: ./tumo-cloud-gateway
+
+  tumo-cloud-auth:
+    image: tumo-cloud-auth
+    hostname: tumo-cloud-auth
+    container_name: tumo-cloud-auth
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - tumo_cloud_net
+    build:
+      context: ./tumo-cloud-auth
+
+  tumo-cloud-upms:
+    image: tumo-cloud-upms
+    hostname: tumo-cloud-upms
+    container_name: tumo-cloud-upms
+    restart: always
+    ports:
+      - 4000:4000
+    networks:
+      - tumo_cloud_net
+    build:
+      context: ./tumo-cloud-upms/tumo-cloud-upms-biz
+
+  tumo-cloud-visual-admin:
+    image: tumo-cloud-visual-admin
+    hostname: tumo-cloud-visual-admin
+    container_name: tumo-cloud-visual-admin
+    ports:
+      - 5001:5001
+    networks:
+      - tumo_cloud_net
+    build:
+      context: ./tumo-cloud-visual/tumo-cloud-visual-admin
+
+  tumo-cloud-visual-sentinel:
+    image: tumo-cloud-visual-sentinel
+    hostname: tumo-cloud-visual-sentinel
+    container_name: tumo-cloud-visual-sentinel
+    ports:
+      - 5002:5002
+    networks:
+      - tumo_cloud_net
+    build:
+      context: ./tumo-cloud-visual/tumo-cloud-visual-sentinel
+
+networks:
+  tumo_cloud_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.1.0/16
