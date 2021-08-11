@@ -1,5 +1,11 @@
 version: "3.5"
 
+##
+## 这里不提供构建Nacos镜像的脚本。
+## 在生产环境中，本项目使用Nacos官方提供的Docker镜像，因此不在这里构建镜像
+## 生产环境的Docker-Compose脚本请查看 https://github.com/Tumo-Team/tumo-scripts/tree/main/tumo-cloud
+##
+
 services:
   tumo-cloud-mysql:
     image: tumo-cloud-mysql
@@ -29,18 +35,6 @@ services:
     networks:
       - tumo_cloud_net
 
-  tumo-cloud-nacos:
-    image: tumo-cloud-nacos
-    hostname: tumo-cloud-nacos
-    container_name: tumo-cloud-nacos
-    restart: always
-    ports:
-      - 8848:8848
-    networks:
-      - tumo_cloud_net
-    build:
-      context: ./tumo-cloud-nacos
-
   tumo-cloud-gateway:
     image: tumo-cloud-gateway
     hostname: tumo-cloud-gateway
@@ -50,7 +44,7 @@ services:
       - 9999:9999
     networks:
       tumo_cloud_net:
-        ipv4_address: 172.30.1.1
+        ipv4_address: 172.31.1.1
     build:
       context: ./tumo-cloud-gateway
 
@@ -105,4 +99,4 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.30.1.0/16
+        - subnet: 172.31.1.0/16

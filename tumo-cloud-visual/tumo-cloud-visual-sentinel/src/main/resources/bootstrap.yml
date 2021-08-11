@@ -1,9 +1,9 @@
 server:
-  port: 5001
+  port: 5002
 
 spring:
   application:
-    name: tumo-cloud-visual-admin
+    name: tumo-cloud-visual-sentinel
 
   cloud:
     nacos:
@@ -14,12 +14,3 @@ spring:
         file-extension: yml
         shared-configs:
           - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
-
-  security:
-    user:
-      name: Tumo-Cloud
-      password: Tumo-Cloud
-  boot:
-    admin:
-      ui:
-        title: Tumo-Cloud 服务监控
