@@ -11,6 +11,8 @@
 
 **[Tumo-Cloud](https://github.com/Tumo-Team/tumo-cloud)** 是基于SpringCloud2020.x、SpringCloud Alibaba2021.x、SpringBoot2.5.x、SpringSecurity开发的权限管理项目，前端基于Node、Vue3.x、Ant-Design-Vue2.x开发。
 
+如果你还未熟悉SpringCloud，你可以先尝试学习本项目的SpringBoot版本：[https://github.com/Tumo-Team/tumo-boot](https://github.com/Tumo-Team/tumo-boot)
+
 ## 项目地址
 
 - **项目预览：** [http://cloud.tycoding.cn](http://cloud.tycoding.cn)
